@@ -14,4 +14,7 @@ function anagram(s,t){
     return true;
 }
 
-console.log(anagram("aab", "abb"));
+console.log(anagram("aab", "abb")); // false
+console.log(anagram("listen", "silent")); // true
+
+// show palindrom code
