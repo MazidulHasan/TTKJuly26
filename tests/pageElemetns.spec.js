@@ -44,3 +44,46 @@ test('Valid User login with playwright locators _ Slider', async ({ page }) => {
     await page.locator('//a[@href="slider.html"]').click();  
     await page.locator('#myRange').fill('75')
 })
+
+test('New Window', async ({ page }) => {
+    await page.locator('//a[@href="switching-windows.html"]').click();
+    
+    // new tab
+    const page1Promise = page.waitForEvent('popup') // declaring a event handeler
+    await page.getByRole('button',{name:'New Tab'}).click(); // catch the event
+    const page1 = await page1Promise;
+
+    await expect(page1.getByRole('heading',{name:'This is a new tab'})).toBeVisible()
+
+
+    //  new windows
+    const page2Promise = page.waitForEvent('popup');
+    await page.getByRole('button',{name:'New Window'}).click();
+    const page2 = await page2Promise;
+    await page2.locator('body').click();
+
+})
+
+
+test('Right Click', async ({ page }) => {
+    await page.locator('//a[@href="right-click-action.html"]').click();
+
+    await page.getByRole('button',{name:'Right click me'}).click({ button:'right'})
+})
+
+test('Scrolling', async ({ page }) => {
+    await page.locator('//a[@href="scrolling-up-down.html"]').click();
+
+    const scrollBox = await page.locator('.scrollable-box');
+    await scrollBox.hover();
+
+    for (let index = 0; index < 100 ; index++) {
+        await page.mouse.wheel(0,20);
+        await page.waitForTimeout(20)
+    }
+})
+
+test('Web Table', async ({ page }) => {
+    await page.locator('//a[@href="users-table.html"]').click();
+    await expect(page.getByRole('cell', {name:'naim.whosayne@gmail.com'})).toBeVisible();
+})
