@@ -28,7 +28,7 @@ test('Valid User login with playwright locators _ iframe', async ({ page }) => {
 })
 
 test('Valid User login with playwright locators _ dropdown', async ({ page }) => {
-  await page.locator('//a[@href="drop-down.html"]').click();  
+  await page.locator('//a[@href="drop-down.html"]').click();
   await page.locator('#cars').selectOption('Tesla');
     // manual  div will  show next class
 })
